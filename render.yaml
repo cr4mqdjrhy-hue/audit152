@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: audit152
+    env: docker
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: ALLOWED_ORIGINS
+        value: "*"
