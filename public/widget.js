@@ -391,19 +391,19 @@
     <div class="audit152-shell">
       <div class="audit152-top">
         <div>
-          <div class="audit152-kicker">152-Р¤Р— В· СЌРєСЃРїСЂРµСЃСЃ-Р°СѓРґРёС‚</div>
-          <h2 class="audit152-title">РџСЂРѕРІРµСЂРєР° СЃР°Р№С‚Р° РЅР° СЂРёСЃРєРё РїРѕ РїРµСЂСЃРѕРЅР°Р»СЊРЅС‹Рј РґР°РЅРЅС‹Рј</h2>
-          <p class="audit152-subtitle">РЎРµСЂРІРёСЃ СЃРјРѕС‚СЂРёС‚ РѕС‚РєСЂС‹С‚С‹Рµ РїСЂРёР·РЅР°РєРё: РїРѕР»РёС‚РёРєСѓ, СЃРѕРіР»Р°СЃРёСЏ РІ С„РѕСЂРјР°С…, cookie-Р±Р°РЅРЅРµСЂ Рё Р·Р°РїСѓСЃРє Р°РЅР°Р»РёС‚РёРєРё РґРѕ СЃРѕРіР»Р°СЃРёСЏ.</p>
+          <div class="audit152-kicker">152-ФЗ · экспресс-аудит</div>
+          <h2 class="audit152-title">Проверка сайта на риски по персональным данным</h2>
+          <p class="audit152-subtitle">Сервис смотрит открытые признаки: политику, согласия в формах, cookie-баннер и запуск аналитики до согласия.</p>
         </div>
         <div class="audit152-meta">
-          <span>Р¤РѕРєСѓСЃ РїСЂРѕРІРµСЂРєРё</span>
-          <strong>РџР”, cookies, С„РѕСЂРјС‹</strong>
+          <span>Фокус проверки</span>
+          <strong>ПД, cookies, формы</strong>
         </div>
       </div>
 
       <form class="audit152-form">
         <input class="audit152-input" name="url" type="text" inputmode="url" autocomplete="url" placeholder="example.ru">
-        <button class="audit152-button" type="submit">РџСЂРѕРІРµСЂРёС‚СЊ</button>
+        <button class="audit152-button" type="submit">Проверить</button>
       </form>
 
       <div class="audit152-error" hidden></div>
@@ -411,11 +411,11 @@
       <div class="audit152-progress" hidden>
         <div class="audit152-progress-line"><span></span></div>
         <ol>
-          <li>РћС‚РєСЂС‹РІР°СЋ СЃР°Р№С‚</li>
-          <li>РС‰Сѓ РґРѕРєСѓРјРµРЅС‚С‹</li>
-          <li>РџСЂРѕРІРµСЂСЏСЋ С„РѕСЂРјС‹</li>
-          <li>РЎРјРѕС‚СЂСЋ Р°РЅР°Р»РёС‚РёРєСѓ</li>
-          <li>РЎРѕР±РёСЂР°СЋ РѕС‚С‡РµС‚</li>
+          <li>Открываю сайт</li>
+          <li>Ищу документы</li>
+          <li>Проверяю формы</li>
+          <li>Смотрю аналитику</li>
+          <li>Собираю отчет</li>
         </ol>
       </div>
 
@@ -440,22 +440,22 @@
 
   const statusText = {
     pass: 'OK',
-    warn: 'Р’РЅРёРјР°РЅРёРµ',
-    fail: 'Р РёСЃРє'
+    warn: 'Внимание',
+    fail: 'Риск'
   };
 
   function formatRub(value) {
     const number = Number(value) || 0;
-    if (!number) return '0 в‚Ѕ';
-    return `${new Intl.NumberFormat('ru-RU').format(number)} в‚Ѕ`;
+    if (!number) return '0 ₽';
+    return `${new Intl.NumberFormat('ru-RU').format(number)} ₽`;
   }
 
   function renderFine(fine) {
     if (!fine) return '';
-    const prefix = fine.includedInTotal === false ? 'СѓС‡С‚РµРЅРѕ РІ СЃРјРµР¶РЅРѕРј СЂРёСЃРєРµ' : 'РІРµСЂС…РЅСЏСЏ РѕС†РµРЅРєР°';
+    const prefix = fine.includedInTotal === false ? 'учтено в смежном риске' : 'верхняя оценка';
     return `
       <div class="audit152-fine">
-        Р РљРќ: РґРѕ ${formatRub(fine.maxRub)} В· ${escapeHtml(fine.article)} В· ${escapeHtml(prefix)}
+        РКН: до ${formatRub(fine.maxRub)} · ${escapeHtml(fine.article)} · ${escapeHtml(prefix)}
       </div>
     `;
   }
@@ -483,7 +483,7 @@
           </div>
           ${renderFine(check.fine)}
           <p>${escapeHtml(check.details)}</p>
-          <p><strong>Р§С‚Рѕ СЃРґРµР»Р°С‚СЊ:</strong> ${escapeHtml(check.recommendation)}</p>
+          <p><strong>Что сделать:</strong> ${escapeHtml(check.recommendation)}</p>
         </article>
       `)
       .join('');
@@ -491,39 +491,39 @@
     const analytics = data.evidence.analytics || [];
     const analyticsText = analytics.length
       ? analytics.map((item) => item.name).join(', ')
-      : 'РЅРµ РѕР±РЅР°СЂСѓР¶РµРЅС‹ РїРѕРїСѓР»СЏСЂРЅС‹Рµ СЃС‡РµС‚С‡РёРєРё РґРѕ СЃРѕРіР»Р°СЃРёСЏ';
+      : 'не обнаружены популярные счетчики до согласия';
     const docLinks = data.evidence.documentLinks || [];
     const docText = docLinks.length
       ? docLinks
           .slice(0, 5)
-          .map((link) => `${escapeHtml(link.text || 'РґРѕРєСѓРјРµРЅС‚')}: ${escapeHtml(link.href)}`)
+          .map((link) => `${escapeHtml(link.text || 'документ')}: ${escapeHtml(link.href)}`)
           .join('<br>')
-      : 'РґРѕРєСѓРјРµРЅС‚С‹ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РЅРµ РЅР°Р№РґРµРЅС‹';
+      : 'документы автоматически не найдены';
     const topRiskText = fineSummary.topRisk
-      ? `${formatRub(fineSummary.topRisk.maxRub)} В· ${fineSummary.topRisk.article}`
-      : '0 в‚Ѕ';
+      ? `${formatRub(fineSummary.topRisk.maxRub)} · ${fineSummary.topRisk.article}`
+      : '0 ₽';
 
     result.innerHTML = `
       <section class="audit152-summary">
         <div class="audit152-score">${Number(data.score) || 0}%</div>
         <div class="audit152-summary-text">
           <h3>${escapeHtml(data.summary)}</h3>
-          <p>РџСЂРѕРІРµСЂРµРЅРѕ: ${escapeHtml(data.finalUrl || data.targetUrl)}. РћС€РёР±РѕРє: ${data.failCount}, РїСЂРµРґСѓРїСЂРµР¶РґРµРЅРёР№: ${data.warnCount}.</p>
+          <p>Проверено: ${escapeHtml(data.finalUrl || data.targetUrl)}. Ошибок: ${data.failCount}, предупреждений: ${data.warnCount}.</p>
         </div>
       </section>
 
       <section class="audit152-fine-strip">
         <div class="audit152-stat">
-          <span>РљСЂРёС‚РёС‡РЅС‹Рµ СЂРёСЃРєРё</span>
+          <span>Критичные риски</span>
           <strong>${Number(data.failCount) || 0}</strong>
         </div>
         <div class="audit152-stat">
-          <span>РЎР°РјС‹Р№ РґРѕСЂРѕРіРѕР№ СЂРёСЃРє</span>
+          <span>Самый дорогой риск</span>
           <strong>${escapeHtml(topRiskText)}</strong>
         </div>
         <div class="audit152-stat fine">
-          <span>РС‚РѕРіРѕ РїРѕС‚РµРЅС†РёР°Р»СЊРЅРѕ</span>
-          <strong>РґРѕ ${formatRub(fineSummary.totalMaxRub)}</strong>
+          <span>Итого потенциально</span>
+          <strong>до ${formatRub(fineSummary.totalMaxRub)}</strong>
         </div>
       </section>
 
@@ -531,18 +531,18 @@
 
       <section class="audit152-total">
         <div class="audit152-total-row">
-          <span>РС‚РѕРіРѕРІР°СЏ РІРµСЂС…РЅСЏСЏ РѕС†РµРЅРєР° С€С‚СЂР°С„Р° Р РљРќ</span>
-          <strong>РґРѕ ${formatRub(fineSummary.totalMaxRub)}</strong>
+          <span>Итоговая верхняя оценка штрафа РКН</span>
+          <strong>до ${formatRub(fineSummary.totalMaxRub)}</strong>
         </div>
         <p>${escapeHtml(fineSummary.basis || '')} ${escapeHtml(fineSummary.note || '')}</p>
       </section>
 
       <div class="audit152-evidence">
-        <div><strong>Р¤РѕСЂРјС‹:</strong> ${Number(data.evidence.formsFound) || 0}</div>
-        <div><strong>РџРѕР»СЏ СЃ РџР”:</strong> ${Number(data.evidence.personalFieldsFound) || 0}</div>
-        <div><strong>Р§РµРєР±РѕРєСЃС‹ СЃРѕРіР»Р°СЃРёСЏ:</strong> ${Number(data.evidence.consentFieldsFound) || 0}</div>
-        <div><strong>РђРЅР°Р»РёС‚РёРєР° РґРѕ СЃРѕРіР»Р°СЃРёСЏ:</strong> ${escapeHtml(analyticsText)}</div>
-        <div><strong>Р”РѕРєСѓРјРµРЅС‚С‹:</strong><br>${docText}</div>
+        <div><strong>Формы:</strong> ${Number(data.evidence.formsFound) || 0}</div>
+        <div><strong>Поля с ПД:</strong> ${Number(data.evidence.personalFieldsFound) || 0}</div>
+        <div><strong>Чекбоксы согласия:</strong> ${Number(data.evidence.consentFieldsFound) || 0}</div>
+        <div><strong>Аналитика до согласия:</strong> ${escapeHtml(analyticsText)}</div>
+        <div><strong>Документы:</strong><br>${docText}</div>
       </div>
 
       <div class="audit152-note">${escapeHtml(data.disclaimer)}</div>
@@ -556,13 +556,13 @@
 
     const url = input.value.trim();
     if (!url) {
-      showError('Р’РІРµРґРёС‚Рµ Р°РґСЂРµСЃ СЃР°Р№С‚Р°.');
+      showError('Введите адрес сайта.');
       input.focus();
       return;
     }
 
     button.disabled = true;
-    button.textContent = 'РџСЂРѕРІРµСЂСЏСЋ...';
+    button.textContent = 'Проверяю...';
     progress.hidden = false;
 
     const controller = new AbortController();
@@ -581,21 +581,21 @@
       const data = await response.json().catch(() => null);
 
       if (!response.ok || !data || !data.ok) {
-        throw new Error(data?.message || 'РџСЂРѕРІРµСЂРєР° РЅРµ СѓРґР°Р»Р°СЃСЊ.');
+        throw new Error(data?.message || 'Проверка не удалась.');
       }
 
       renderReport(data);
     } catch (error) {
       showError(
         error.name === 'AbortError'
-          ? 'РџСЂРѕРІРµСЂРєР° Р·Р°РЅСЏР»Р° СЃР»РёС€РєРѕРј РјРЅРѕРіРѕ РІСЂРµРјРµРЅРё. РџРѕРїСЂРѕР±СѓР№С‚Рµ РґСЂСѓРіРѕР№ СЃР°Р№С‚ РёР»Рё РїРѕРІС‚РѕСЂРёС‚Рµ РїРѕР·Р¶Рµ.'
+          ? 'Проверка заняла слишком много времени. Попробуйте другой сайт или повторите позже.'
           : error.message
       );
     } finally {
       clearTimeout(timer);
       progress.hidden = true;
       button.disabled = false;
-      button.textContent = 'РџСЂРѕРІРµСЂРёС‚СЊ';
+      button.textContent = 'Проверить';
     }
   });
 })();
