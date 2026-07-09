@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>152-ФЗ аудит</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 40px 16px;
+        background: #eef2f5;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="audit152-widget"></div>
+    <script src="/widget.js" data-api-url="/audit152"></script>
+  </body>
+</html>
